@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-prac-2025",
+  "name": "nextjs-practice-todo-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,11 @@
     "build": "next build",
     "prettier": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "schema": "npm run get:api && npm run schema:generate",
+    "get:api": "curl -o .docs/api.json http://localhost:8080/docs/api.json",
+    "schema:generate": "openapi-typescript .docs/api.json -o src/lib/apiClient/types/schema.d.ts && prettier --write src/lib/apiClient/types/schema.d.ts && prettier --write .docs/api.json",
+    "mock": "prism mock .docs/api.json --port 18080"
   },
   "dependencies": {
     "next": "15.3.3",
@@ -22,6 +26,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
+    "openapi-fetch": "^0.14.0",
+    "openapi-typescript": "^7.8.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4",
