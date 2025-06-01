@@ -1,10 +1,14 @@
-export const originFetch: typeof fetch = (input, init) => {
-  const token = ''; // TODO
+import { cookies } from 'next/headers';
+
+export const originFetch: typeof fetch = async (input, init) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('access_token')?.value ?? null;
   const request = fetch(input, {
     ...init,
     headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Bearer ${token}` : '',
       ...init?.headers,
-      Authorization: `Bearer ${token}`,
     },
     credentials: 'include',
   }).then((res) => res.clone());

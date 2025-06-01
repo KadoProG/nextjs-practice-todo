@@ -5,10 +5,6 @@ import { safeEnv } from '@/lib/apiClient/env';
 
 export const apiClient = createClient<paths>({
   baseUrl: `${safeEnv.API_BASE_URL}`,
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type': 'application/json',
-  },
   credentials: 'include',
   fetch: originFetch,
 });
