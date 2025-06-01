@@ -1,13 +1,10 @@
 import { apiClient } from '@/lib/apiClient';
-import { safeEnv } from '@/lib/apiClient/env';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   const { email, password } = await req.json();
 
-  console.log('Login attempt:', { email, password });
-  console.log(safeEnv.API_BASE_URL);
   try {
     const { response, data } = await apiClient.POST('/v1/login', {
       body: {
