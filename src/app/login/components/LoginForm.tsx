@@ -1,8 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 
 export const LoginForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,10 +26,9 @@ export const LoginForm = () => {
         console.error('Login failed:', errorData);
         return;
       }
-      const data = await res.json();
-      console.log('Login successful:', data);
+      router.replace('/todos');
     },
-    [email, password]
+    [email, password, router]
   );
   const disabledInput = isSubmitting;
   const disabledButton = disabledInput || !email || !password;
