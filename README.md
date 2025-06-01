@@ -1,3 +1,28 @@
+# TODO APP Frontend (Next.js)
+
+Next.js でフロントエンドを作成。
+
+- [React Version](https://github.com/KadoProG/todo-frontend-react-v2)
+- [バックエンド Laravel](https://github.com/KadoProG/todo-frontend-react-v2)
+
+## 起動方法
+
+```shell
+cp .env.example .env
+npm ci
+npm run dev
+```
+
+## ログ
+
+- Next.js には **中間API** という概念があり、クライアントコンポーネントから API Router を叩き、API Router が本物のバックエンドを叩くというもの
+  - `メリット` バックエンドのURLが公開されないからセキュリティ的に強くなる
+  - `メリット` Cookie で認証情報を保持し、same origin 等の設定ができるため、XSS攻撃にも強くなる
+  - `デメリット` 実質２個 API の fetch を記述する必要があり、開発者の負担が大きい
+    - 特に最初から CSRF-TOKEN などがバックエンド側から付与される場合は過剰性能疑惑がある
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
