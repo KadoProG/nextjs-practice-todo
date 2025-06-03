@@ -2,6 +2,7 @@
 
 import LockIcon from '@/assets/lock.svg?react';
 import EarthIcon from '@/assets/earth.svg?react';
+import UserIcon from '@/assets/user.svg?react';
 import Link from 'next/link';
 import { useTodoList } from '../lib/useTodoList';
 import dayjs from 'dayjs';
@@ -39,6 +40,16 @@ export const TodoList = () => {
                   <span className="text-sm">Public</span>
                 </p>
               )}
+              <p className="flex items-center gap-1 text-sm">
+                <UserIcon className="inline size-4" />
+                {todo.created_user.name} が作成
+              </p>
+              <p className="flex items-center gap-1 text-sm text-[blue]">
+                <UserIcon className="inline size-4" />
+                担当者：
+                {todo.assigned_users.length === 0 && 'なし'}
+                {todo.assigned_users.map((user) => user.name).join(', ')}
+              </p>
               <p className="text-sm">
                 期限：
                 {todo.expired_at ? dayjs(todo.expired_at).format('YYYY年MM月DD日 HH:mm') : 'なし'}
