@@ -17,7 +17,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch tasks' }, { status: response.status });
   }
   if (!data?.tasks) {
-    return NextResponse.json({ error: 'No tasks found' }, { status: 404 });
+    return NextResponse.json({ error: 'Failed to fetch tasks' }, { status: 500 });
   }
   return NextResponse.json({ tasks: data.tasks }, { status: 200 });
 }

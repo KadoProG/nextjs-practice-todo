@@ -1,6 +1,6 @@
 'use client';
 
-import { useTodoList } from '@/app/todos/lib/useTodoList';
+import { useTodoList } from '../lib/useTodoList';
 
 export const TodoList = () => {
   const { isLoading, todos, mutate } = useTodoList();
