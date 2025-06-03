@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 5173",
+    "dev": "next dev --port 5173",
     "build": "next build",
     "prettier": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "start": "next start",
@@ -14,10 +14,12 @@
     "mock": "prism mock .docs/api.json --port 18080"
   },
   "dependencies": {
+    "dayjs": "^1.11.13",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "swr": "^2.3.3"
+    "swr": "^2.3.3",
+    "@svgr/webpack": "^8.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

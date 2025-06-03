@@ -1,36 +1,61 @@
 'use client';
 
+import LockIcon from '@/assets/lock.svg?react';
+import EarthIcon from '@/assets/earth.svg?react';
+import Link from 'next/link';
 import { useTodoList } from '../lib/useTodoList';
+import dayjs from 'dayjs';
 
 export const TodoList = () => {
   const { isLoading, todos, mutate } = useTodoList();
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold">TODOリスト</h1>
-        {isLoading ? (
-          <p className="text-lg">Loading...</p>
-        ) : todos.length === 0 ? (
-          <p className="text-lg">No tasks available</p>
-        ) : (
-          <ul className="list-disc pl-5">
-            {todos.map((todo) => (
-              <li key={todo.id} className="text-lg">
+    <div className="flex flex-col gap-4 p-6">
+      <h1 className="text-3xl font-bold">TODOリスト</h1>
+      {isLoading ? (
+        <p className="text-lg">Loading...</p>
+      ) : todos.length === 0 ? (
+        <p className="text-lg">No tasks available</p>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {todos.map((todo) => (
+            <li key={todo.id} className="rounded border border-border p-2 text-lg">
+              <Link
+                href={`/todos/${todo.id}`}
+                className="block rounded px-1 text-[blue] transition hover:bg-bg-base-hover dark:hover:bg-bg-base-hover-dark"
+              >
                 {todo.title}
-              </li>
-            ))}
-          </ul>
-        )}
-        <button
-          onClick={() => mutate()}
-          className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-        >
-          Refresh
-        </button>
-        <p className="mt-2 text-sm text-gray-500">
-          {isLoading ? 'Loading tasks...' : `Total tasks: ${todos.length}`}
-        </p>
-      </div>
+              </Link>
+              <p className="text-sm">{todo.description}</p>
+              {!todo.is_public && (
+                <p className="flex items-center gap-1 text-[blue]">
+                  <LockIcon className="inline size-4" />
+                  <span className="text-sm">Private</span>
+                </p>
+              )}
+
+              {todo.is_public && (
+                <p className="flex items-center gap-1 text-[green]">
+                  <EarthIcon className="inline size-4" />
+                  <span className="text-sm">Public</span>
+                </p>
+              )}
+              <p className="text-sm">
+                期限：
+                {todo.expired_at ? dayjs(todo.expired_at).format('YYYY年MM月DD日 HH:mm') : 'なし'}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+      <button
+        onClick={() => mutate()}
+        className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+      >
+        Refresh
+      </button>
+      <p className="mt-2 text-sm text-gray-500">
+        {isLoading ? 'Loading tasks...' : `Total tasks: ${todos.length}`}
+      </p>
     </div>
   );
 };
